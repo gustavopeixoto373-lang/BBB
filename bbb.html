@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Votação BBB</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f0f0f;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      color: #ff7f50;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #1a1a1a;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .media {
+      position: relative;
+      width: 100%;
+      padding-top: 100%; /* quadrado */
+      overflow: hidden;
+    }
+
+    .media img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .info {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .name {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .progress {
+      height: 10px;
+      background: #333;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #ff7f50, #ff4500);
+      transition: width 0.3s;
+    }
+
+    .stats {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    button {
+      margin-top: 8px;
+      padding: 10px;
+      background: #ff7f50;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff4500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Votação BBB</h1>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <script>
+    // Participantes com fotos reais (use URLs das imagens)
+    const state = {
+      contestants: [
+        { id: 'ana', nome: 'Ana', votos: 0, foto: 'https://picsum.photos/400?1' },
+        { id: 'bruno', nome: 'Bruno', votos: 0, foto: 'https://picsum.photos/400?2' },
+        { id: 'carol', nome: 'Carol', votos: 0, foto: 'https://picsum.photos/400?3' }
+      ]
+    };
+
+    function totalVotos() {
+      return state.contestants.reduce((sum, c) => sum + c.votos, 0);
+    }
+
+    function render() {
+      const grid = document.getElementById("grid");
+      const total = totalVotos();
+      grid.innerHTML = "";
+
+      state.contestants.forEach(c => {
+        const percent = total ? ((c.votos / total) * 100).toFixed(1) : 0;
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="media">
+            <img src="${c.foto}" alt="${c.nome}">
+          </div>
+          <div class="info">
+            <div class="name">${c.nome}</div>
+            <div class="progress">
+              <div class="progress-bar" style="width:${percent}%;"></div>
+            </div>
+            <div class="stats">${percent}% (${c.votos} votos)</div>
+            <button onclick="vote('${c.id}')">Votar em ${c.nome}</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function vote(id) {
+      const candidato = state.contestants.find(c => c.id === id);
+      candidato.votos++;
+      render();
+    }
+
+    render();
+  </script>
+</body>
+</html>
