@@ -1,327 +1,304 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Votação — Paredão</title>
-<style>
-  :root{
-    --bg:#0d0f14; --panel:#141824; --muted:#98a0b3; --text:#e9eef7;
-    --accent:#ff7a00; --accent-2:#ff3c54; --card:#111217;
-    --radius:14px; --shadow:0 8px 24px rgba(0,0,0,.5);
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    min-height:100vh;
-    background:
-      radial-gradient(800px 400px at 80% -10%, rgba(255,122,0,.06), transparent 40%),
-      linear-gradient(180deg,#071018 0%, #0d0f14 100%);
-    color:var(--text);
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    padding:28px;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-  }
-
-  .wrap{ width:100%; max-width:1024px; }
-
-  header{ display:flex; align-items:center; gap:16px; margin-bottom:18px; }
-  .brand{ display:flex; align-items:center; gap:12px; }
-  .logo {
-    width:46px;height:46px;border-radius:10px;
-    background:conic-gradient(from 200deg, var(--accent), var(--accent-2));
-    box-shadow:0 8px 20px rgba(255,122,0,.12);
-  }
-  h1{ margin:0; font-size:20px; letter-spacing:.2px; }
-  .sub{ color:var(--muted); font-size:13px }
-
-  .controls{ display:flex; gap:10px; margin-left:auto; align-items:center; }
-  .btn{ padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.06); background:rgba(255,255,255,.02); color:var(--text); cursor:pointer }
-  .btn.primary{ background: linear-gradient(90deg,var(--accent),var(--accent-2)); border:none; color:white }
-  .btn.warn{ background:transparent; border:1px solid rgba(255,160,60,.12); color:var(--accent) }
-  .btn.ghost{ background:transparent; border:1px dashed rgba(255,255,255,.04) }
-
-  .grid{ display:grid; gap:18px; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); margin-top:12px }
-
-  .card{
-    background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-    border:1px solid rgba(255,255,255,.04);
-    border-radius:var(--radius);
-    overflow:hidden;
-    box-shadow:var(--shadow);
-    display:flex;
-    flex-direction:column;
-  }
-
-  .media{ position:relative; width:100%; padding-top:100%; background:#0b0d12; }
-  .media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block }
-  .media .placeholder{ position:absolute; inset:0; display:grid; place-items:center; font-weight:700; color:#0b0d12; background:linear-gradient(145deg,#f3f4f6,#cbd5e1); font-size:28px }
-
-  .body{ padding:12px 12px 16px; display:flex; flex-direction:column; gap:10px }
-  .name{ font-weight:700; font-size:16px }
-  .progress{ height:10px; background:rgba(255,255,255,.04); border-radius:999px; overflow:hidden }
-  .progress > i{ display:block; height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .4s ease }
-
-  .row{ display:flex; align-items:center; gap:8px; justify-content:space-between }
-  .muted{ color:var(--muted); font-size:13px }
-
-  .actions{ display:flex; gap:8px; }
-  .actions .btn{ flex:1 }
-
-  /* Modal resultado */
-  .modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.6); z-index:60 }
-  .modal.open{ display:flex }
-  .sheet{ width:min(720px,94vw); background:var(--panel); padding:18px; border-radius:14px; border:1px solid rgba(255,255,255,.04); box-shadow:var(--shadow) }
-  .result-list{ display:flex; gap:12px; flex-wrap:wrap; margin-top:12px }
-  .result-item{ background:#0b0d12; padding:10px; border-radius:10px; min-width:160px; text-align:center }
-  .big-percent{ font-size:28px; font-weight:800; color:var(--accent); margin-top:6px }
-  .small{ font-size:13px; color:var(--muted) }
-
-  /* responsive */
-  @media(max-width:600px){ header{flex-direction:column;align-items:flex-start} .controls{ margin-left:0 } .row{ flex-direction:column; align-items:flex-start; gap:6px } }
-</style>
+  <meta charset="UTF-8">
+  <title>Votação BBB Style</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fafafa;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #d6001c;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    main {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+    }
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .card button {
+      background: #d6001c;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .card button:hover {
+      background: #b00018;
+    }
+    /* popup */
+    .popup {
+      position: fixed;
+      top:0;left:0;
+      width:100%;height:100%;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,0.6);
+      z-index:9999;
+    }
+    .popup-content {
+      background:#fff;
+      padding:20px;
+      border-radius:16px;
+      text-align:center;
+      box-shadow:0px 4px 12px rgba(0,0,0,0.3);
+      animation: fadeInOut 3s ease forwards;
+    }
+    .popup-content img {
+      margin-top:10px;
+      width:120px;
+      height:120px;
+      border-radius:12px;
+      object-fit:cover;
+    }
+    @keyframes fadeInOut {
+      0% {opacity:0; transform:scale(0.9);}
+      10% {opacity:1; transform:scale(1);}
+      90% {opacity:1;}
+      100% {opacity:0; transform:scale(0.9);}
+    }
+    /* admin */
+    #admin-panel {
+      display:none;
+      padding:20px;
+      background:#f5f5f5;
+      border-top:3px solid #d6001c;
+    }
+    #admin-panel h2 { margin-top:0; }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+    }
+    table, th, td {
+      border:1px solid #ccc;
+    }
+    th, td {
+      padding:8px;
+      text-align:center;
+    }
+    .hidden {display:none;}
+    #final-screen {
+      display:none;
+      position:fixed;
+      top:0;left:0;
+      width:100%;height:100%;
+      background:white;
+      z-index:10000;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      text-align:center;
+    }
+    #final-screen img {
+      width:200px;
+      border-radius:12px;
+      margin:20px 0;
+    }
+  </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <h1>Paredão — Votação</h1>
-          <div class="sub">Escolha quem deve sair da casa</div>
-        </div>
-      </div>
+  <header>Sistema de Votação BBB Style</header>
+  
+  <main id="participants"></main>
 
-      <div class="controls">
-        <div class="muted">Votos totais: <b id="totalVotes">0</b></div>
-        <button class="btn primary" id="btnFinish">Finalizar votação</button>
-        <button class="btn" id="btnExport">Exportar JSON</button>
-        <button class="btn ghost" id="btnReset">Resetar votos</button>
-      </div>
-    </header>
-
-    <main>
-      <div class="grid" id="grid" aria-live="polite"></div>
-    </main>
-  </div>
-
-  <!-- Modal resultado -->
-  <div class="modal" id="modalResult" aria-hidden="true">
-    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
-      <h2 id="resultTitle">Resultado do Paredão</h2>
-      <div id="resultSummary" class="small" style="margin-top:6px"></div>
-
-      <div id="resultList" class="result-list"></div>
-
-      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px">
-        <button class="btn" id="btnCloseResult">Fechar</button>
-        <button class="btn primary" id="btnConfirmElimination">Confirmar eliminação (resetar)</button>
-      </div>
+  <!-- popup -->
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <h2>Voto Confirmado</h2>
+      <img id="popup-img" src="" alt="Foto do participante">
     </div>
   </div>
 
+  <!-- admin login -->
+  <div style="padding:20px;">
+    <input type="password" id="admin-pass" placeholder="Senha Admin">
+    <button onclick="loginAdmin()">Entrar Admin</button>
+  </div>
+
+  <!-- painel admin -->
+  <div id="admin-panel">
+    <h2>Painel Admin</h2>
+    <button onclick="resetarVotacao()">Resetar Votação</button>
+    <button onclick="exportarDados()">Exportar Dados</button>
+    <button onclick="encerrarVotacao()">Encerrar Votação</button>
+    <br><br>
+    <h3>Alterar Senha</h3>
+    <input type="password" id="nova-senha" placeholder="Nova senha">
+    <button onclick="alterarSenha()">Alterar</button>
+
+    <h3>Adicionar Participante</h3>
+    <input type="text" id="novo-nome" placeholder="Nome">
+    <input type="text" id="nova-foto" placeholder="URL da foto">
+    <button onclick="adicionarParticipante()">Adicionar</button>
+
+    <h3>Estatísticas</h3>
+    <table id="tabela-admin">
+      <thead>
+        <tr><th>Nome</th><th>Votos</th><th>%</th><th>Ações</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- tela final -->
+  <div id="final-screen">
+    <h1>Resultado Final</h1>
+    <h2 id="eliminado-nome"></h2>
+    <img id="eliminado-foto" src="">
+    <h3 id="estatisticas-finais"></h3>
+    <button onclick="resetarVotacao()">Reiniciar</button>
+  </div>
+
 <script>
-/* ---------- Persistência e estado ---------- */
-const STORAGE_KEY = 'votacao_paredao_v1';
+let participantes = JSON.parse(localStorage.getItem("participantes")) || [
+  {id:1,nome:"Ana",foto:"https://picsum.photos/id/1011/300/300",votos:0},
+  {id:2,nome:"Bruno",foto:"https://picsum.photos/id/1012/300/300",votos:0},
+  {id:3,nome:"Carla",foto:"https://picsum.photos/id/1013/300/300",votos:0}
+];
+let adminSenha = localStorage.getItem("adminSenha") || "1234";
 
-const DEFAULT_STATE = {
-  contestants: [
-    { id: 'ana', nome: 'Ana', votos: 0, foto: 'https://picsum.photos/id/1011/800/800' },
-    { id: 'bruno', nome: 'Bruno', votos: 0, foto: 'https://picsum.photos/id/1012/800/800' },
-    { id: 'carol', nome: 'Carol', votos: 0, foto: 'https://picsum.photos/id/1013/800/800' },
-    { id: 'davi', nome: 'Davi', votos: 0, foto: 'https://picsum.photos/id/1015/800/800' }
-  ]
-};
-
-function loadState(){
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(!raw) return structuredClone(DEFAULT_STATE);
-    const parsed = JSON.parse(raw);
-    // garantia de formato
-    if(!parsed || !Array.isArray(parsed.contestants)) return structuredClone(DEFAULT_STATE);
-    return parsed;
-  } catch(e){
-    console.warn('Erro ao carregar estado', e);
-    return structuredClone(DEFAULT_STATE);
-  }
-}
-function saveState(){
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-  catch(e){ console.warn('Erro ao salvar estado', e); }
+function salvar() {
+  localStorage.setItem("participantes",JSON.stringify(participantes));
 }
 
-let state = loadState();
-
-/* ---------- util ---------- */
-function fmtInt(n){ return new Intl.NumberFormat('pt-BR').format(n); }
-function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
-function escapeHtml(s){ return String(s||'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;'); }
-
-/* ---------- DOM ---------- */
-const grid = document.getElementById('grid');
-const totalVotesEl = document.getElementById('totalVotes');
-const btnFinish = document.getElementById('btnFinish');
-const btnExport = document.getElementById('btnExport');
-const btnReset = document.getElementById('btnReset');
-
-const modal = document.getElementById('modalResult');
-const resultSummary = document.getElementById('resultSummary');
-const resultList = document.getElementById('resultList');
-const btnCloseResult = document.getElementById('btnCloseResult');
-const btnConfirmElimination = document.getElementById('btnConfirmElimination');
-
-/* ---------- renderização ---------- */
-function recalcTotal(){
-  const total = state.contestants.reduce((s,c)=> s + Number(c.votos||0), 0);
-  return total;
-}
-
-function render(){
-  const total = recalcTotal();
-  totalVotesEl.textContent = fmtInt(total);
-
-  grid.innerHTML = '';
-  if(!state.contestants || state.contestants.length===0){
-    grid.innerHTML = '<div class="muted">Nenhum participante cadastrado.</div>';
-    return;
-  }
-
-  // para evitar divisão por zero
-  const denom = total === 0 ? 1 : total;
-
-  state.contestants.forEach(c => {
-    const votes = Number(c.votos || 0);
-    const pct = (votes / denom) * 100;
-    const pctText = total === 0 ? '0,0%' : pct.toFixed(1).replace('.',',') + '%';
-
-    const card = document.createElement('article');
-    card.className = 'card';
-    card.innerHTML = `
-      <div class="media">
-        ${c.foto ? `<img src="${escapeHtml(c.foto)}" alt="${escapeHtml(c.nome)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">` : ''}
-        <div class="placeholder" style="${c.foto ? 'display:none' : ''}">${escapeHtml(c.nome.slice(0,1).toUpperCase())}</div>
-      </div>
-      <div class="body">
-        <div class="row">
-          <div>
-            <div class="name">${escapeHtml(c.nome)}</div>
-            <div class="small muted">${votes} votos • ${pctText}</div>
-          </div>
-        </div>
-        <div class="progress" aria-hidden="true">
-          <i style="width:${clamp(pct,0,100)}%"></i>
-        </div>
-        <div class="actions">
-          <button class="btn primary btn-vote" data-id="${escapeHtml(c.id)}">Votar em ${escapeHtml(c.nome)}</button>
-        </div>
-      </div>
+function renderParticipantes() {
+  const container=document.getElementById("participants");
+  container.innerHTML="";
+  participantes.forEach(p=>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
+      <img src="${p.foto}">
+      <h3>${p.nome}</h3>
+      <button onclick="registrarVoto(${p.id})">Votar</button>
     `;
-    grid.appendChild(card);
+    container.appendChild(card);
+  });
+  atualizarTabelaAdmin();
+}
+
+function registrarVoto(id) {
+  const p=participantes.find(x=>x.id===id);
+  p.votos++;
+  salvar();
+  confirmarVoto(p.foto);
+}
+
+function confirmarVoto(foto){
+  const popup=document.getElementById("popup");
+  const popupImg=document.getElementById("popup-img");
+  popupImg.src=foto;
+  popup.style.display="flex";
+  setTimeout(()=>popup.style.display="none",3000);
+}
+
+function loginAdmin(){
+  const pass=document.getElementById("admin-pass").value;
+  if(pass===adminSenha){
+    document.getElementById("admin-panel").style.display="block";
+  } else {
+    alert("Senha incorreta!");
+  }
+}
+
+function atualizarTabelaAdmin(){
+  const tbody=document.querySelector("#tabela-admin tbody");
+  tbody.innerHTML="";
+  const total=participantes.reduce((a,b)=>a+b.votos,0);
+  participantes.forEach((p,i)=>{
+    const tr=document.createElement("tr");
+    const perc=total?((p.votos/total)*100).toFixed(1):0;
+    tr.innerHTML=`
+      <td>${p.nome}</td>
+      <td>${p.votos}</td>
+      <td>${perc}%</td>
+      <td><button onclick="removerParticipante(${p.id})">Remover</button></td>
+    `;
+    tbody.appendChild(tr);
   });
 }
 
-/* ---------- votação ---------- */
-grid.addEventListener('click', (ev)=>{
-  const btn = ev.target.closest('.btn-vote');
-  if(!btn) return;
-  const id = btn.getAttribute('data-id');
-  vote(id);
-});
-
-function vote(id){
-  const idx = state.contestants.findIndex(x=>x.id === id);
-  if(idx === -1) { alert('Participante não encontrado'); return; }
-  state.contestants[idx].votos = Number(state.contestants[idx].votos || 0) + 1;
-  saveState();
-  render();
-}
-
-/* ---------- finalizar / tela final ---------- */
-btnFinish.addEventListener('click', ()=> {
-  openResultModal();
-});
-
-function openResultModal(){
-  const total = recalcTotal();
-  if(total === 0){
-    resultSummary.textContent = 'Nenhum voto computado ainda.';
-    resultList.innerHTML = '';
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden','false');
-    return;
+function adicionarParticipante(){
+  const nome=document.getElementById("novo-nome").value;
+  const foto=document.getElementById("nova-foto").value;
+  if(nome && foto){
+    participantes.push({id:Date.now(),nome,foto,votos:0});
+    salvar();
+    renderParticipantes();
   }
+}
 
-  // calcula maior número de votos
-  let max = -1;
-  state.contestants.forEach(c => { if(Number(c.votos||0) > max) max = Number(c.votos||0); });
-  // pega todos com votos === max (empate possível)
-  const winners = state.contestants.filter(c => Number(c.votos||0) === max);
+function removerParticipante(id){
+  participantes=participantes.filter(p=>p.id!==id);
+  salvar();
+  renderParticipantes();
+}
 
-  const totalVotes = recalcTotal();
-  resultSummary.textContent = `Total de votos: ${fmtInt(totalVotes)} • Eliminado(s): ${winners.map(w=>w.nome).join(', ')}`;
+function resetarVotacao(){
+  participantes.forEach(p=>p.votos=0);
+  salvar();
+  renderParticipantes();
+  document.getElementById("final-screen").style.display="none";
+}
 
-  // lista os vencedores / eliminados
-  resultList.innerHTML = '';
-  winners.forEach(w => {
-    const pct = totalVotes ? ((Number(w.votos||0) / totalVotes) * 100) : 0;
-    const item = document.createElement('div');
-    item.className = 'result-item';
-    item.innerHTML = `
-      <div style="font-weight:700">${escapeHtml(w.nome)}</div>
-      <div class="big-percent">${pct.toFixed(1).replace('.',',')}%</div>
-      <div class="small">${fmtInt(Number(w.votos||0))} votos</div>
-    `;
-    resultList.appendChild(item);
+function alterarSenha(){
+  const nova=document.getElementById("nova-senha").value;
+  if(nova){
+    adminSenha=nova;
+    localStorage.setItem("adminSenha",nova);
+    alert("Senha alterada!");
+  }
+}
+
+function exportarDados(){
+  const dados=JSON.stringify(participantes);
+  const blob=new Blob([dados],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;a.download="dados.json";a.click();
+  URL.revokeObjectURL(url);
+}
+
+function encerrarVotacao(){
+  const total=participantes.reduce((a,b)=>a+b.votos,0);
+  if(!total){alert("Nenhum voto ainda!");return;}
+  const eliminado=participantes.reduce((max,p)=>p.votos>max.votos?p:max,participantes[0]);
+  document.getElementById("eliminado-nome").textContent=eliminado.nome;
+  document.getElementById("eliminado-foto").src=eliminado.foto;
+  let est="";
+  participantes.forEach(p=>{
+    const perc=((p.votos/total)*100).toFixed(1);
+    est+=`${p.nome}: ${p.votos} votos (${perc}%)\n`;
   });
-
-  modal.classList.add('open');
-  modal.setAttribute('aria-hidden','false');
+  document.getElementById("estatisticas-finais").textContent=est;
+  document.getElementById("final-screen").style.display="flex";
 }
 
-btnCloseResult.addEventListener('click', ()=> {
-  modal.classList.remove('open');
-  modal.setAttribute('aria-hidden','true');
-});
-
-/* Confirmar eliminação = após confirmar, remove o(s) eliminado(s) ou apenas reset? 
-   Aqui iremos resetar votos e manter participantes — se quiser remover o(s) eliminado(s) também, posso alterar. */
-btnConfirmElimination.addEventListener('click', ()=> {
-  if(!confirm('Confirmar eliminação: os votos serão zerados (participantes permanecem).')) return;
-  state.contestants.forEach(c => c.votos = 0);
-  saveState();
-  render();
-  modal.classList.remove('open');
-  modal.setAttribute('aria-hidden','true');
-});
-
-/* ---------- export / reset ---------- */
-btnExport.addEventListener('click', ()=> {
-  const filename = 'votacao_export_' + (new Date()).toISOString().slice(0,19).replaceAll(':','-') + '.json';
-  download(filename, JSON.stringify(state, null, 2), 'application/json');
-});
-
-btnReset.addEventListener('click', ()=> {
-  if(!confirm('Deseja realmente zerar todos os votos?')) return;
-  state.contestants.forEach(c=> c.votos = 0);
-  saveState();
-  render();
-});
-
-/* ---------- helper download ---------- */
-function download(filename, content, type='text/plain'){
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([content], { type }));
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(a.href);
-}
-
-/* ---------- inicialização ---------- */
-render();
-
+renderParticipantes();
 </script>
 </body>
 </html>
